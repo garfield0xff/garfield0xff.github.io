@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Synapse</title>
+    <link>https://garfield0xff.github.io/hugo-PaperMod/</link>
+    <description>Recent content on Synapse</description>
+    <image>
+      <title>Synapse</title>
+      <url>https://garfield0xff.github.io/hugo-PaperMod/images/papermod-cover.png</url>
+      <link>https://garfield0xff.github.io/hugo-PaperMod/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- 0.129.0</generator>
+    <language>en</language>
+    <copyright>2024 Kim Gyujin</copyright>
+    <lastBuildDate>Mon, 29 Jul 2024 23:16:38 +0900</lastBuildDate>
+    <atom:link href="https://garfield0xff.github.io/hugo-PaperMod/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction Computer Vision</title>
+      <link>https://garfield0xff.github.io/hugo-PaperMod/posts/introduction-cv/</link>
+      <pubDate>Mon, 29 Jul 2024 23:16:38 +0900</pubDate>
+      <guid>https://garfield0xff.github.io/hugo-PaperMod/posts/introduction-cv/</guid>
+      <description>컴퓨터 비전에 대해 원론적으로 접근해보면서 컴퓨터 비전에 대한 Depth를 넓히고자 한다 .
+정의 디지털 이미지에서 정보를 추출하는 과학적인 영역 여기서 말하는 정보란 (Space, Location.. ) 등의 새로운 차원의 정보를 말한다. 따라서 RGB 혹은 RGBA 데이터로 새로운 차원의 정보를 추출하는 과학적인 영역이라고 해석할 수 있다
+인간의 시야와 비슷한 시야 인지 능력을 구현하는 학문 인간의 지각 능력과 인지(해석)능력을 구분해 파이프라인을 구현하고 시야인지 능력을 구현하고자 하는 학문이라고 해석할 수 있다.
+아래 이미지를 통해 컴퓨터 비전이 포맷에 따라 어떻게 사용되는지 간략하게 파악 할 수 있다.</description>
+    </item>
+    <item>
+      <title>Linear Regression</title>
+      <link>https://garfield0xff.github.io/hugo-PaperMod/posts/linear-regression/</link>
+      <pubDate>Mon, 29 Jul 2024 23:16:38 +0900</pubDate>
+      <guid>https://garfield0xff.github.io/hugo-PaperMod/posts/linear-regression/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
