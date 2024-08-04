@@ -15,6 +15,15 @@
     <lastBuildDate>Mon, 29 Jul 2024 23:16:38 +0900</lastBuildDate>
     <atom:link href="https://garfield0xff.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Gradient Descent</title>
+      <link>https://garfield0xff.github.io/posts/gradient-descent/</link>
+      <pubDate>Mon, 29 Jul 2024 23:16:38 +0900</pubDate>
+      <guid>https://garfield0xff.github.io/posts/gradient-descent/</guid>
+      <description>다양한 문제에서 Loss를 어떻게 정의하고 줄여나갈 수 있을까? Gradient descent를 통해 한번 알아보자
+정의 주어진 볼록 함수를 로컬 최소값으로 최소화 하기위해 매개 변수를 반복적으로 조정하는 기법 매개변수 ( weights 에 대한 Loss )를 반복적으로 조정해 볼록 함수의 최소화하는 변곡점을 찾는 과정이라고 해석 할 수 있다.
+제약 조건이 없는 수학적 최적화 방법 경사 하강법은 일반적으로 단순히 함수의 기울기를 따라 이동하며 최솟값을 찾는 문제이기 떄문에 제약 조건이 없는 최적화 문제에 사용된다. 제약 조건이 있을 경우에는 추가적인 ( 라그랑주 승수법, 베리어 함수법)등을 기법을 수행해야한다</description>
+    </item>
+    <item>
       <title>Introduction Computer Vision</title>
       <link>https://garfield0xff.github.io/posts/introduction-cv/</link>
       <pubDate>Mon, 29 Jul 2024 23:16:38 +0900</pubDate>
@@ -32,15 +41,6 @@
       <description>학습의 과정은 물체 혹은 이미지를 지각하고 인지한 후 내 머릿속의 식을 바꾸는 것으로 해석할 수 있다. 그렇다면 Linear Legression은 학습을 어떻게 표현했을지 알아보자.
 정의 데이터를 사용하여 변수 간의 관계를 식별하고 이러한 관계를 사용하여 예측을 수행하는 기술 x_data 와 y_data 가 주어졌을떄 두 데이터간의 관계를 파악하고 새로운 z_data 에 대한 예측을 수행하는 기술이라고 이해 할 수 있다.
 고차원 공간에서 데이터 점들을 가장 잘 표현할 수 있는 초평면(hyperplane)을 찾는 기술 여기서 초평면은 n 차원 공간에서 n -1 차원의 flat한 면이다.</description>
-    </item>
-    <item>
-      <title></title>
-      <link>https://garfield0xff.github.io/posts/gradient-descent/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://garfield0xff.github.io/posts/gradient-descent/</guid>
-      <description>다양한 문제에서 Loss를 어떻게 정의하고 줄여나갈 수 있을까? Gradient descent를 통해 한번 알아보자
-정의 주어진 볼록 함수를 로컬 최소값으로 최소화 하기위해 매개 변수를 반복적으로 조정하는 기법 매개변수 ( weights 에 대한 Loss )를 반복적으로 조정해 볼록 함수의 최소화하는 변곡점을 찾는 과정이라고 해석 할 수 있다.
-제약 조건이 없는 수학적 최적화 방법 경사 하강법은 일반적으로 단순히 함수의 기울기를 따라 이동하며 최솟값을 찾는 문제이기 떄문에 제약 조건이 없는 최적화 문제에 사용된다. 제약 조건이 있을 경우에는 추가적인 ( 라그랑주 승수법, 베리어 함수법)등을 기법을 수행해야한다</description>
     </item>
   </channel>
 </rss>
