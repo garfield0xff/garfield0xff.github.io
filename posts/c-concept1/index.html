@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>C-Concept 정리 1 | Synapse</title>
+<meta name="keywords" content="">
+<meta name="description" content="혼자 공부하는 C 언어 1장부터 11장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.
+Program 1. Program 은 명령어의 로직을 설계하고 나열한 것이다. 2. C언어는 하드웨어에 상관없이 유닉스를 개발하기 위해 설계되었다. 3. Compile (빌드) 은 Source 를 컴파일러를 통해 기계어로 만드는 과정이다. ( Decomplier ) 4. gcc 는 어셈블리어를 기계어로 porting 하는 기능도 포함하기 때문에 어셈블러의 기능을 포함한 컴파일러라고도 생각할 수 있다. 5. visual studio는 IDE 이자 Compiler(MSVC) 의 기능을 포함하고 있다. -&gt; 책에서는 컴파일러중 하나라고 표현하고 있지만 명확하게는 Microsoft Visual C 의 컴파일러의 기능을 포함한 IDE가 정확한 표현이다.">
+<meta name="author" content="">
+<link rel="canonical" href="https://garfield0xff.github.io/posts/c-concept1/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://garfield0xff.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://garfield0xff.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://garfield0xff.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://garfield0xff.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://garfield0xff.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://garfield0xff.github.io/posts/c-concept1/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  
+
+<meta property="og:title" content="C-Concept 정리 1" />
+<meta property="og:description" content="혼자 공부하는 C 언어 1장부터 11장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.
+Program 1. Program 은 명령어의 로직을 설계하고 나열한 것이다. 2. C언어는 하드웨어에 상관없이 유닉스를 개발하기 위해 설계되었다. 3. Compile (빌드) 은 Source 를 컴파일러를 통해 기계어로 만드는 과정이다. ( Decomplier ) 4. gcc 는 어셈블리어를 기계어로 porting 하는 기능도 포함하기 때문에 어셈블러의 기능을 포함한 컴파일러라고도 생각할 수 있다. 5. visual studio는 IDE 이자 Compiler(MSVC) 의 기능을 포함하고 있다. -&gt; 책에서는 컴파일러중 하나라고 표현하고 있지만 명확하게는 Microsoft Visual C 의 컴파일러의 기능을 포함한 IDE가 정확한 표현이다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://garfield0xff.github.io/posts/c-concept1/" />
+<meta property="og:image" content="https://garfield0xff.github.io/images/papermod-cover.png" />
+<meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-07-29T23:16:38+09:00" />
+<meta property="article:modified_time" content="2024-07-29T23:16:38+09:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://garfield0xff.github.io/images/papermod-cover.png" />
+<meta name="twitter:title" content="C-Concept 정리 1"/>
+<meta name="twitter:description" content="혼자 공부하는 C 언어 1장부터 11장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.
+Program 1. Program 은 명령어의 로직을 설계하고 나열한 것이다. 2. C언어는 하드웨어에 상관없이 유닉스를 개발하기 위해 설계되었다. 3. Compile (빌드) 은 Source 를 컴파일러를 통해 기계어로 만드는 과정이다. ( Decomplier ) 4. gcc 는 어셈블리어를 기계어로 porting 하는 기능도 포함하기 때문에 어셈블러의 기능을 포함한 컴파일러라고도 생각할 수 있다. 5. visual studio는 IDE 이자 Compiler(MSVC) 의 기능을 포함하고 있다. -&gt; 책에서는 컴파일러중 하나라고 표현하고 있지만 명확하게는 Microsoft Visual C 의 컴파일러의 기능을 포함한 IDE가 정확한 표현이다."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://garfield0xff.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "C-Concept 정리 1",
+      "item": "https://garfield0xff.github.io/posts/c-concept1/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "C-Concept 정리 1",
+  "name": "C-Concept 정리 1",
+  "description": "혼자 공부하는 C 언어 1장부터 11장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.\nProgram 1. Program 은 명령어의 로직을 설계하고 나열한 것이다. 2. C언어는 하드웨어에 상관없이 유닉스를 개발하기 위해 설계되었다. 3. Compile (빌드) 은 Source 를 컴파일러를 통해 기계어로 만드는 과정이다. ( Decomplier ) 4. gcc 는 어셈블리어를 기계어로 porting 하는 기능도 포함하기 때문에 어셈블러의 기능을 포함한 컴파일러라고도 생각할 수 있다. 5. visual studio는 IDE 이자 Compiler(MSVC) 의 기능을 포함하고 있다. -\u0026gt; 책에서는 컴파일러중 하나라고 표현하고 있지만 명확하게는 Microsoft Visual C 의 컴파일러의 기능을 포함한 IDE가 정확한 표현이다.",
+  "keywords": [
+    
+  ],
+  "articleBody": "혼자 공부하는 C 언어 1장부터 11장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.\nProgram 1. Program 은 명령어의 로직을 설계하고 나열한 것이다. 2. C언어는 하드웨어에 상관없이 유닉스를 개발하기 위해 설계되었다. 3. Compile (빌드) 은 Source 를 컴파일러를 통해 기계어로 만드는 과정이다. ( Decomplier ) 4. gcc 는 어셈블리어를 기계어로 porting 하는 기능도 포함하기 때문에 어셈블러의 기능을 포함한 컴파일러라고도 생각할 수 있다. 5. visual studio는 IDE 이자 Compiler(MSVC) 의 기능을 포함하고 있다. -\u003e 책에서는 컴파일러중 하나라고 표현하고 있지만 명확하게는 Microsoft Visual C 의 컴파일러의 기능을 포함한 IDE가 정확한 표현이다. Compile Process 1.전처리 : preprocess는 전처리 지시자에 따라 소스 파일을 가공하는 과정. 예를들어 전처리 과정이 지나면 #include 가 lib.c 파일을 불러 Rom 메모리 Text section에 추가함 따라서 전처리 과정은 #include 혹은 #define 혹은 매크로 같은 preprocess 함수를 텍스트로 치환해 코드해 포함하는 과정이라 할 수 있음. objdump 를 활용하여 c 에서 i 를 확인해볼때 Text 섹션이 증가한 것을 확인 할 수 있다. 2. 컴파일 : 전처리가 끝난 파일을 컴파일하면 .s (assembly) 파일이됌 이 어셈블리 파일을 어셈블 과정을 진행하면 .o 개체파일이 형성됌 이 개체파일은 함수 이름 변수 이름등 외부 심볼등의 정보가 포함된 심볼 테이블들이 있으며 독립적으로 사용될 수 없으며 링크할 Startup Code (C-Rumtime Libarary) 가 필요함 3. 링크 : CRT와 개체파일이 링크되어 운영체제에서 인식할 수 있는 실행파일로 변경한다. CRT 는 Stack Frame, Stack Pointer 등 스택과 힙등을 관리하며 운영체제를 통해 영역을 확장, main 함수를 실행한다. printf 1. \\r \\n window에서는 \\r과 \\n 을 \\n에 하나로 통합해 사용하고 있지만 \\r은 커서를 맨앞으로 옮기고 \\n은 한줄 밑으로 옮긴다는것을 구분해야함 ex) print(\"Hello\\rbaby\") = baby + 출력문은 type의 값을 임시버퍼를 활용해 모든 값들을 문자열로 할당함 따라서 char 자료형의 정수 값을 출력해도 ASCII 문자로 나오는것이 그 이유, 나머지 자료형들도 다 문자열로 출력된다고 할 수 있다. Const 1. 상수는 값을 바꿀 수 없다 -\u003e L-value로 다시 사용할 수 없다로 생각하자 2. 10은 정수 상수, 10.0 은 실수 상수, 'a'는 문자 상수 \"a\" 는 문자열 상수 -\u003e 상수라는 표현보다 수정되지 않는 메모리 영역을 참조하는 r-data로 생각하는게 좋은 것 같다. r-data는 운영체제나 로더가 관리하며 이 영역을 읽기전용으로 설정하기 때문에 이 데이터를 변경할 경우 오류를 발생시킨다. 3. 정수 상수의 양수는 4바이트 크기의 2진수로 음수는 2의 보수로 컴파일한다 4. 실수는 IEEE 754 표준의 double 형식에 따라 번역되며, 첫 비트는 부호비트, 이후 11개 비트는 지수부, 나머지 52비트는 소수부로 나타낸다. 따라서 실수뿐만 아니라 모든 데이터 구조에 해당 첫 비트가 부호비트에 사용되기때문에 signed는 unsigned 보다 1 / 2의 expression range를 가진다. Variable 1. 변수 선언으로 메모리에 저장 공간을 확보하며, 대입 연산자로 변수 값을 초기화하거나 저장한다. 초기화하지 않은 변수에는 쓰레기 값이 들어있다 -\u003e 전역 변수는 프로그램의 Data Section에 포함되기 때문에 선언만 하더라도 0값으로 초기화되며 (이 과정은 운영체제에서 진행) 지역변수는 stack에 잡히므로 초기화 하지 않으면 garbage 값이 잡힘 따라서 책에서의 표현이 정확하지는 않다는 개인적인 생각이 있다 2. 변수의 형태를 자료형이라 하며 기본적으로 정수형과 실수형으로 나뉨. 3. 변수에 const 를 사용하면 상수처럼 사용할 수 있다. -\u003e identifier를 l-value로 다시 사용할 수 없다로 생각하자. 4. 예약어는 컴파일러와 약속된 단어이고, 식별자는 사용자가 만들어 낸 단어이다. Scanf 1. 키보드로 데이터를 입력할떄는 scanf함수를 사용하며 변수 앞에 \u0026를 사용한다 -\u003e 변수나 문자 하나를 입력할때는 Stack 혹은 Heap의 메모리 주소를 참조해야 하므로 address type을 붙혀주지만 문자열은 stream의 형식이므로 문자열의 첫 문자가 주소 값을 반환하기때문에 address type을 붙혀주지 않아도 된다. 2. 둘 이상의 데이터를 입력할때는 space bar, tab, enter로 각 데이터를 구분한다 Operator 1. 결합 법칙 : 우선 순위를 가진 연산자가 여러개 있을때 c에서는 대부분의 연산자가 (Left to Right) 결합 법칙을 따름 but 대입 연산자나 삼항 연산자는 오른쪽 결합 법칙을 따름 2. sizeof 연산자는 괄호와 함께 사용하지만 함수는 아니다 -\u003e 컴파일 될떄 이미 크기가 결정되기 떄문에 함수호출에 대한 오버헤드를 줄이기 위해 연산자로 설계되었다. 3. 복합대입 연산자의 우선순위는 대입 연산자와 같다 우선순위 연산자 설명 결합법칙 1 () 괄호 좌 -\u003e 우 2 [], -\u003e, . 배열 인덱스, 구조체 포인터 접근 좌 -\u003e 우 3 !, ~, ++, --, - 논리 부정, 비트 반전, 증감, 부호 우 -\u003e 좌 4 *, /, % 곱셈, 나눗셈, 나머지 좌 -\u003e 우 5 +, - 덧셈, 뺄셈 좌 -\u003e 우 6 \u003c\u003c, \u003e\u003e 비트 시프트 좌 -\u003e 우 7 \u003c, \u003c=, \u003e, \u003e= 비교 연산자 좌 -\u003e 우 8 ==, != 동등성 비교 좌 -\u003e 우 9 \u0026 비트 AND 좌 -\u003e 우 10 ^ 비트 XOR 좌 -\u003e 우 11 ` 비트 OR 12 \u0026\u0026 논리 AND 좌 -\u003e 우 13 ` ` 좌 -\u003e 우 14 ?: 삼항 연산자 우 -\u003e 좌 15 =, +=, -=, *= 등 대입 및 복합 대입 연산자 우 -\u003e 좌 ex )\nint p[2][3] -\u003e params (int*)p[i] (x) int p[2][3] -\u003e params ((int*)p)[i] (o) IF 1. cpu는 pipeline 방식을 활용해 여러 명령어를 동시에 처리하는데 분기(if) 가 발생하면 cpu는 다음에 실행 할 명령어를 예측해서 미리 준비한다. (분기 예측) 2. 예측이 틀리면 pipeline을 비우고 다시 채워야하므로 성능에 손실이 발생할 수 있다. 3. 따라서 삼항 연산자 혹은 shift 연산자로 if문을 일부 대체 할 수 있다. Function 1. 함수 선언을 하면 함수를 만들지 않고도 함수의 형태를 미리 알릴 수 있다. -\u003e c 는 컴파일러 언어이기 떄문에 위에서 아래로 컴파일되므로 정의된 위치보다 앞에서 함수를 사용하고자 한다면 프로토타입이 필요하기 때문에 함수 선언을 미리 해줘야한다. Array 1. 배열을 선언하면 많은 변수를 한번에 선언하는 효과를 볼 수 있다. -\u003e 배열은 동일한 데이터 타입의 여래개의 변수를 연속된 메모리 공간에 저장하는 자료구조이다. 배열의 identifier는 고정된 메모리 주소를 가리키기떄문에 포인터 상수로 간주되며 이 주소를 다른 메모리 위치를 가리키도록 변경할 수 없다, 2. 배열의 주소값은 운영체제의 주소체계에 따라 달라지기떄문에 4byte 혹은 8byte의 크기를 가질 수 있다. 3. 포인터는 포인터 변수 배열은 주소값을 나타내므로 포인터 상수의 값을 가진다. 4. 배열 전체의 크기를 구할때는 sizeof 함수를 사용한다. 5. 정적으로 메모리를 선언할때는 stack 메모리에 할당되기때문에 메모리 해제를 해주지 않아도 되나 동적으로 메모리를 선언할때는 heap 메모리에 할당되기때문에 free or delete 를 사용하여 직접 메모리를 해제해야함. Stack은 Frame의 성질 Heap은 list의 성질을 가지고 있다. ",
+  "wordCount" : "922",
+  "inLanguage": "en",
+  "image": "https://garfield0xff.github.io/images/papermod-cover.png","datePublished": "2024-07-29T23:16:38+09:00",
+  "dateModified": "2024-07-29T23:16:38+09:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://garfield0xff.github.io/posts/c-concept1/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Synapse",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://garfield0xff.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://garfield0xff.github.io/" accesskey="h" title="Synapse (Alt + H)">Synapse</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://garfield0xff.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://garfield0xff.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      C-Concept 정리 1
+    </h1>
+    <div class="post-meta"><span title='2024-07-29 23:16:38 +0900 KST'>July 29, 2024</span>&nbsp;·&nbsp;5 min
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#program" aria-label="Program">Program</a></li>
+                <li>
+                    <a href="#compile-process" aria-label="Compile Process">Compile Process</a></li>
+                <li>
+                    <a href="#printf" aria-label="printf">printf</a></li>
+                <li>
+                    <a href="#const" aria-label="Const">Const</a></li>
+                <li>
+                    <a href="#variable" aria-label="Variable">Variable</a></li>
+                <li>
+                    <a href="#scanf" aria-label="Scanf">Scanf</a></li>
+                <li>
+                    <a href="#operator" aria-label="Operator">Operator</a></li>
+                <li>
+                    <a href="#if" aria-label="IF">IF</a></li>
+                <li>
+                    <a href="#function" aria-label="Function">Function</a></li>
+                <li>
+                    <a href="#array" aria-label="Array">Array</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>혼자 공부하는 C 언어 1장부터 11장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.</p>
+<h4 id="program"><code>Program</code><a hidden class="anchor" aria-hidden="true" href="#program">#</a></h4>
+<pre><code>1. Program 은 명령어의 로직을 설계하고 나열한 것이다.
+2. C언어는 하드웨어에 상관없이 유닉스를 개발하기 위해 설계되었다.
+3. Compile (빌드) 은 Source 를 컴파일러를 통해 기계어로 만드는 과정이다. ( Decomplier )
+4. gcc 는 어셈블리어를 기계어로 porting 하는 기능도 포함하기 때문에 어셈블러의 기능을 포함한 컴파일러라고도 생각할 수 있다.
+5. visual studio는 IDE 이자 Compiler(MSVC) 의 기능을 포함하고 있다. -&gt; 책에서는 컴파일러중 하나라고 표현하고 있지만 명확하게는 Microsoft Visual C 의 컴파일러의 기능을 포함한 IDE가 정확한 표현이다.
+</code></pre>
+<h4 id="compile-process"><code>Compile Process</code><a hidden class="anchor" aria-hidden="true" href="#compile-process">#</a></h4>
+<pre><code>1.전처리 : preprocess는 전처리 지시자에 따라 소스 파일을 가공하는 과정. 예를들어 전처리 과정이 지나면 #include &lt;stdio.h&gt;가 lib.c 파일을 불러 Rom 메모리 Text section에 추가함 따라서 전처리 과정은 #include 혹은 #define 혹은 매크로 같은 preprocess 함수를 텍스트로 치환해 코드해 포함하는 과정이라 할 수 있음. objdump 를 활용하여 c 에서 i 를 확인해볼때 Text 섹션이 증가한 것을 확인 할 수 있다.
+2. 컴파일 : 전처리가 끝난 파일을 컴파일하면  .s (assembly) 파일이됌 이 어셈블리 파일을 어셈블 과정을 진행하면 .o 개체파일이 형성됌 이 개체파일은 함수 이름 변수 이름등 외부 심볼등의 정보가 포함된 심볼 테이블들이 있으며 독립적으로 사용될 수 없으며 링크할 Startup Code (C-Rumtime Libarary) 가 필요함
+3. 링크 : CRT와 개체파일이 링크되어 운영체제에서 인식할 수 있는 실행파일로 변경한다.
+   CRT 는 Stack Frame, Stack Pointer 등 스택과 힙등을 관리하며 운영체제를 통해 영역을 확장, main 함수를 실행한다.
+</code></pre>
+<h4 id="printf"><code>printf</code><a hidden class="anchor" aria-hidden="true" href="#printf">#</a></h4>
+<pre><code>1. \r \n  window에서는 \r과 \n 을 \n에 하나로 통합해 사용하고 있지만 \r은 커서를 맨앞으로 옮기고 \n은 한줄 밑으로 옮긴다는것을 구분해야함 ex) print(&quot;Hello\rbaby&quot;) = baby
++ 출력문은 type의 값을 임시버퍼를 활용해  모든 값들을 문자열로 할당함 따라서 char 자료형의 정수 값을 출력해도 ASCII 문자로 나오는것이 그 이유, 나머지 자료형들도 다 문자열로 출력된다고 할 수 있다.
+</code></pre>
+<h4 id="const"><code>Const</code><a hidden class="anchor" aria-hidden="true" href="#const">#</a></h4>
+<pre><code>1. 상수는 값을 바꿀 수 없다 -&gt; L-value로 다시 사용할 수 없다로 생각하자
+2. 10은 정수 상수, 10.0 은 실수 상수, 'a'는 문자 상수 &quot;a&quot; 는 문자열 상수 -&gt; 상수라는 표현보다 수정되지 않는 메모리 영역을 참조하는 r-data로 생각하는게 좋은 것 같다. r-data는 운영체제나 로더가 관리하며 이 영역을 읽기전용으로 설정하기 때문에 이 데이터를 변경할 경우 오류를 발생시킨다.
+3. 정수 상수의 양수는 4바이트 크기의 2진수로 음수는 2의 보수로 컴파일한다
+4. 실수는 IEEE 754 표준의 double 형식에 따라 번역되며, 첫 비트는 부호비트, 이후 11개 비트는 지수부, 나머지 52비트는 소수부로 나타낸다. 따라서 실수뿐만 아니라 모든 데이터 구조에 해당 첫 비트가 부호비트에 사용되기때문에 signed는 unsigned 보다 1 / 2의 expression range를 가진다.
+</code></pre>
+<h4 id="variable"><code>Variable</code><a hidden class="anchor" aria-hidden="true" href="#variable">#</a></h4>
+<pre><code>1. 변수 선언으로 메모리에 저장 공간을 확보하며, 대입 연산자로 변수 값을 초기화하거나 저장한다. 초기화하지 않은 변수에는 쓰레기 값이 들어있다 -&gt; 전역 변수는 프로그램의 Data Section에 포함되기 때문에 선언만 하더라도 0값으로 초기화되며 (이 과정은 운영체제에서 진행) 지역변수는 stack에 잡히므로 초기화 하지 않으면 garbage 값이 잡힘 따라서 책에서의 표현이 정확하지는 않다는 개인적인 생각이 있다
+2. 변수의 형태를 자료형이라 하며 기본적으로 정수형과 실수형으로 나뉨. 
+3. 변수에 const 를 사용하면 상수처럼 사용할 수 있다. -&gt; identifier를 l-value로 다시 사용할 수 없다로 생각하자.
+4. 예약어는 컴파일러와 약속된 단어이고, 식별자는 사용자가 만들어 낸 단어이다. 
+</code></pre>
+<h4 id="scanf"><code>Scanf</code><a hidden class="anchor" aria-hidden="true" href="#scanf">#</a></h4>
+<pre><code>1. 키보드로 데이터를 입력할떄는 scanf함수를 사용하며 변수 앞에 &amp;를 사용한다 -&gt; 변수나 문자 하나를 입력할때는 Stack 혹은 Heap의 메모리 주소를 참조해야 하므로 address type을 붙혀주지만 문자열은 stream의 형식이므로 문자열의 첫 문자가 주소 값을 반환하기때문에 address type을 붙혀주지 않아도 된다.
+2. 둘 이상의 데이터를 입력할때는 space bar, tab, enter로 각 데이터를 구분한다 
+</code></pre>
+<h4 id="operator"><code>Operator</code><a hidden class="anchor" aria-hidden="true" href="#operator">#</a></h4>
+<pre><code>1. 결합 법칙 : 우선 순위를 가진 연산자가 여러개 있을때 c에서는 대부분의 연산자가 (Left to Right) 결합 법칙을 따름 but 대입 연산자나 삼항 연산자는 오른쪽 결합 법칙을 따름
+2. sizeof 연산자는 괄호와 함께 사용하지만 함수는 아니다 -&gt; 컴파일 될떄 이미 크기가 결정되기 떄문에 함수호출에 대한 오버헤드를 줄이기 위해 연산자로 설계되었다.
+3. 복합대입 연산자의 우선순위는 대입 연산자와 같다
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>우선순위</th>
+<th>연산자</th>
+<th>설명</th>
+<th>결합법칙</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>()</code></td>
+<td>괄호</td>
+<td>좌 -&gt; 우</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>[]</code>, <code>-&gt;</code>, <code>.</code></td>
+<td>배열 인덱스, 구조체 포인터 접근</td>
+<td>좌 -&gt; 우</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>!</code>, <code>~</code>, <code>++</code>, <code>--</code>, <code>-</code></td>
+<td>논리 부정, 비트 반전, 증감, 부호</td>
+<td>우 -&gt; 좌</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>*</code>, <code>/</code>, <code>%</code></td>
+<td>곱셈, 나눗셈, 나머지</td>
+<td>좌 -&gt; 우</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>+</code>, <code>-</code></td>
+<td>덧셈, 뺄셈</td>
+<td>좌 -&gt; 우</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>&lt;&lt;</code>, <code>&gt;&gt;</code></td>
+<td>비트 시프트</td>
+<td>좌 -&gt; 우</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code></td>
+<td>비교 연산자</td>
+<td>좌 -&gt; 우</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>==</code>, <code>!=</code></td>
+<td>동등성 비교</td>
+<td>좌 -&gt; 우</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>&amp;</code></td>
+<td>비트 AND</td>
+<td>좌 -&gt; 우</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>^</code></td>
+<td>비트 XOR</td>
+<td>좌 -&gt; 우</td>
+</tr>
+<tr>
+<td>11</td>
+<td>`</td>
+<td>비트 OR</td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>&amp;&amp;</code></td>
+<td>논리 AND</td>
+<td>좌 -&gt; 우</td>
+</tr>
+<tr>
+<td>13</td>
+<td>`</td>
+<td>`</td>
+<td>좌 -&gt; 우</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>?:</code></td>
+<td>삼항 연산자</td>
+<td>우 -&gt; 좌</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code> 등</td>
+<td>대입 및 복합 대입 연산자</td>
+<td>우 -&gt; 좌</td>
+</tr>
+</tbody>
+</table>
+<p>ex )</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">params</span>  <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">params</span> <span class="p">((</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span> <span class="p">(</span><span class="n">o</span><span class="p">)</span>
+</span></span></code></pre></div><h4 id="if"><code>IF</code><a hidden class="anchor" aria-hidden="true" href="#if">#</a></h4>
+<pre><code>1. cpu는 pipeline 방식을 활용해 여러 명령어를 동시에 처리하는데 분기(if) 가 발생하면 cpu는 다음에 실행 할 명령어를 예측해서 미리 준비한다. (분기 예측)  
+2. 예측이 틀리면 pipeline을 비우고 다시 채워야하므로 성능에 손실이 발생할 수 있다.
+3. 따라서 삼항 연산자 혹은 shift 연산자로 if문을 일부 대체 할 수 있다.
+</code></pre>
+<h4 id="function"><code>Function</code><a hidden class="anchor" aria-hidden="true" href="#function">#</a></h4>
+<pre><code>1. 함수 선언을 하면 함수를 만들지 않고도 함수의 형태를 미리 알릴 수 있다. -&gt; c 는 컴파일러 언어이기 떄문에 위에서 아래로 컴파일되므로 정의된 위치보다 앞에서 함수를 사용하고자 한다면 프로토타입이 필요하기 때문에 함수 선언을 미리 해줘야한다.
+</code></pre>
+<h4 id="array"><code>Array</code><a hidden class="anchor" aria-hidden="true" href="#array">#</a></h4>
+<pre><code>1. 배열을 선언하면 많은 변수를 한번에 선언하는 효과를 볼 수 있다. -&gt; 배열은 동일한 데이터 타입의 여래개의 변수를 연속된 메모리 공간에 저장하는 자료구조이다. 배열의 identifier는 고정된 메모리 주소를 가리키기떄문에 포인터 상수로 간주되며 이 주소를 다른 메모리 위치를 가리키도록 변경할 수 없다,
+2. 배열의 주소값은 운영체제의 주소체계에 따라 달라지기떄문에 4byte 혹은 8byte의 크기를 가질 수 있다.
+3. 포인터는 포인터 변수 배열은 주소값을 나타내므로 포인터 상수의 값을 가진다.
+   
+4. 배열 전체의 크기를 구할때는 sizeof 함수를 사용한다.
+5. 정적으로 메모리를 선언할때는 stack 메모리에 할당되기때문에 메모리 해제를 해주지 않아도 되나 동적으로 메모리를 선언할때는 heap 메모리에 할당되기때문에 free or delete 를 사용하여 직접 메모리를 해제해야함.
+Stack은 Frame의 성질 Heap은 list의 성질을 가지고 있다.
+</code></pre>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://garfield0xff.github.io/posts/gradient-descent/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Gradient Descent</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>2024 Kim Gyujin</span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
