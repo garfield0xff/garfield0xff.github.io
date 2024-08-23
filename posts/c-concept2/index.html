@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>C-Concept 2 | Synapse</title>
+<meta name="keywords" content="">
+<meta name="description" content="혼자 공부하는 C 언어 12장부터 20장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.
+Stdin scanf : scanf 함수는 표준 stdin에서 입력을 받아 지정된 형식에 맞게 데이터를 처리하고 변수에 저장한다. 운영체제는 입력된 데이터가 변수의 크기를 초과하지 않도록 관리하지 않기 떄문에, 사용자가 지정한 변수보다 큰 데이터를 입력하면 버퍼 오퍼플로우가 발생한다. gets : gets는 입력된 문자열을 메모리에 저장하기 위해 버퍼를 사용한다. 하지만 이 함수는 버퍼의 크기를 확인하지 않기 떄문에 입력이 버퍼 크기를 초과할 경우 버퍼 오버플로우가 발생한다.">
+<meta name="author" content="">
+<link rel="canonical" href="https://garfield0xff.github.io/posts/c-concept2/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://garfield0xff.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://garfield0xff.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://garfield0xff.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://garfield0xff.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://garfield0xff.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://garfield0xff.github.io/posts/c-concept2/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  
+
+<meta property="og:title" content="C-Concept 2" />
+<meta property="og:description" content="혼자 공부하는 C 언어 12장부터 20장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.
+Stdin scanf : scanf 함수는 표준 stdin에서 입력을 받아 지정된 형식에 맞게 데이터를 처리하고 변수에 저장한다. 운영체제는 입력된 데이터가 변수의 크기를 초과하지 않도록 관리하지 않기 떄문에, 사용자가 지정한 변수보다 큰 데이터를 입력하면 버퍼 오퍼플로우가 발생한다. gets : gets는 입력된 문자열을 메모리에 저장하기 위해 버퍼를 사용한다. 하지만 이 함수는 버퍼의 크기를 확인하지 않기 떄문에 입력이 버퍼 크기를 초과할 경우 버퍼 오버플로우가 발생한다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://garfield0xff.github.io/posts/c-concept2/" />
+<meta property="og:image" content="https://garfield0xff.github.io/images/papermod-cover.png" />
+<meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-08-23T21:38:38+09:00" />
+<meta property="article:modified_time" content="2024-08-23T21:38:38+09:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://garfield0xff.github.io/images/papermod-cover.png" />
+<meta name="twitter:title" content="C-Concept 2"/>
+<meta name="twitter:description" content="혼자 공부하는 C 언어 12장부터 20장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.
+Stdin scanf : scanf 함수는 표준 stdin에서 입력을 받아 지정된 형식에 맞게 데이터를 처리하고 변수에 저장한다. 운영체제는 입력된 데이터가 변수의 크기를 초과하지 않도록 관리하지 않기 떄문에, 사용자가 지정한 변수보다 큰 데이터를 입력하면 버퍼 오퍼플로우가 발생한다. gets : gets는 입력된 문자열을 메모리에 저장하기 위해 버퍼를 사용한다. 하지만 이 함수는 버퍼의 크기를 확인하지 않기 떄문에 입력이 버퍼 크기를 초과할 경우 버퍼 오버플로우가 발생한다."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://garfield0xff.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "C-Concept 2",
+      "item": "https://garfield0xff.github.io/posts/c-concept2/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "C-Concept 2",
+  "name": "C-Concept 2",
+  "description": "혼자 공부하는 C 언어 12장부터 20장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.\nStdin scanf : scanf 함수는 표준 stdin에서 입력을 받아 지정된 형식에 맞게 데이터를 처리하고 변수에 저장한다. 운영체제는 입력된 데이터가 변수의 크기를 초과하지 않도록 관리하지 않기 떄문에, 사용자가 지정한 변수보다 큰 데이터를 입력하면 버퍼 오퍼플로우가 발생한다. gets : gets는 입력된 문자열을 메모리에 저장하기 위해 버퍼를 사용한다. 하지만 이 함수는 버퍼의 크기를 확인하지 않기 떄문에 입력이 버퍼 크기를 초과할 경우 버퍼 오버플로우가 발생한다.",
+  "keywords": [
+    
+  ],
+  "articleBody": "혼자 공부하는 C 언어 12장부터 20장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.\nStdin scanf : scanf 함수는 표준 stdin에서 입력을 받아 지정된 형식에 맞게 데이터를 처리하고 변수에 저장한다. 운영체제는 입력된 데이터가 변수의 크기를 초과하지 않도록 관리하지 않기 떄문에, 사용자가 지정한 변수보다 큰 데이터를 입력하면 버퍼 오퍼플로우가 발생한다. gets : gets는 입력된 문자열을 메모리에 저장하기 위해 버퍼를 사용한다. 하지만 이 함수는 버퍼의 크기를 확인하지 않기 떄문에 입력이 버퍼 크기를 초과할 경우 버퍼 오버플로우가 발생한다. fgets : stdin에서 지정된 수의 문자 또는 새 문자가 입력될 때까지 입력을 받아 버퍼에 저장한다. 입력된 데이터는 항상 널 문자로 종료된다. 운영체제는 fgets에서 사용자가 지정된 크기만큼 메모리를 할당하고 그 이상 입력되지 않도록 관리한다. 이로 인해 버퍼 오버플로우를 방지할 수 있다. String operator strncpy : 지정된 길이만큼의 문자를 한 문자열에서 다른 문자열로 복사한다 ex ) strncpy ( dest , src ,n ) 함수는 src 문자열에서 최대 n개의 문자를 dest에 복사한다. 만약 src 의 길이가 n 보다 짧다면 dest의 나머지 부분은 null 로 채워진다. dest의 버퍼가 src보다 같거나 크지 않을 경우 오버플로우가 발생 할 수 있다. strncpy 는 n만큼만 복사함 -\u003e str1 = \"Apple\" strncpy(str1, \"airplane\", 1) = \"apple\" strcat : 두개의 문자열을 하나의 문자열로 만든다. strcat(dest, src)는 src 문자열을 dest 문자열의 끝에 연결한다. 이 과정에서 dest 문자열의 끝에 있는 null 문자를 덮어쓰고, src 의 내용을 추가한 후 새로운 끝에 널 문자를 추가한다. strcmp : 두개의 문자열을 비교한다. strcmp 함수는 두 문자열의 사전 순서를 판단해 그 결과를 반환한다. 사전 순서는 사전에 단어가 수록되는 알파벳 순서를 말한다 str + operator : str+operator(destination, source); str+ n + operator : str+n+operator(destination, source , size); Variable Space 지역 변수 : 함수나 블록내에서 선언된 변수이며 일반적으로 Ram 의 Stack 에 저장된다. 함수나 블록이 실행되는 동안에만 유지되며 벗어날 경우 Stack Frame이 없어지고 Stack Pointer가 다시 원 위치하게 된다. 초기화 하지 않은 변수는 쓰레기 값을 가지며 호출될때마다 스택에 새로 할당된다. 전역변수 : 전역변수는 모든 함수나 블록에서 접근할 수 있도록 함수 외부에 선언된 변수이다. 전역변수는 Data, BSS에 저장되며 Process가 Fork 할때 자식 Process에게 전달된다. 전역 변수는 Data 혹은 Bss 에 저장되어 passive process 에서 active process로 전환될때 0으로 초기화 된다. 따라서 프로그램 전체 실행시간동안 메모리를 차지하므로 전역변수의 사용을 최소화 하는것이 좋다 정적변수 : 정적변수는 수명이 프로그램의 실행기간 동안 유지되지만 범위는 선언된블록이나 함수에 제한되는 변수이다. 정적 변수도 Rom의 Data Segment에 저장되며 초기화하지 않으면 0으로 초기화 된다. 하지만 전역변수와 다르게 선언된 함수 혹은 파일 내에서 한번만 할당되고 프로그램이 종료될때 해제된다. 레지스터 변수 : 레지스터 변수는 cpu의 레지스터에 저장되도록 요청되는 변수이다. 일반적으로 매우 빠르게 접근해야할 경우 사용된다. 레지스터 변수는 cpu의 레지스터에 저장되고 레지스터가 부족할 경우 컴파일러가 레지스터가 아닌 메모리에 저장하게된다. 지역변수와 마찬가지로 초기화되지 않은 경우 쓰레기 값이 잡히며 범위 또한 지역변수와 동일하다. 레지스터의 개수는 제한적이므로 레지스터 변수에 대해 신중히 사용해야한다. Array 1차원 배열과 포인터 int arr[3] = { 1, 2, 3}; int *ptr = arr; l-value인 arr 은 배열의 첫번쨰 요소를 가리키는 주소 포인터로 해석할 수 있으며 arr = \u0026arr[0]으로 생각할 수 있다. 즉 arr[i] 은 *(arr + i) 와 동일하다고도 생각할 수 있다.\n2차원 배열과 포인터 int matrix[2][3] = {{1, 2, 3}, {4, 5, 6}}; 위 과정을 생각하면 matrix는 int[3] 을 가리키는 포인터 int(*)[3]으로 간주될 수 있다. 따라서 matrix[i]는 matrix의 i 번째 행을 가리키는 포인터로, 배열의 첫번째 요소를 가리키는 포인터int (*)로 해석할 수 있다. -\u003e matrix[i][j] = *(*(matrix + i ) + j )\n포인터 배열 int *ptrArray[2]; int row1[] = {1, 2, 3}; int row2[] = {4, 5, 6}; ptrArray[0] = row1; ptrArray[1] = row2; 포인터 배열은 배열의 각 요소가 포인터를 가리키는 배열이다. 이를 통해 비정형 2차원 배열을 구현할 수 있다. ptrArray는 int * 타입의 포인터 배열로 각 요소는 배열의 첫 번째 요소를 가리킨다. 따라서 ptrArray[i][j] 는 *(*(ptrArray + i ) + j 와 동일하다.\nMemoery Allocation 1. 프로그램의 실행 중에 필요에 따라 동적으로 크기를 변경해야할때 동적 할당을 사용한다. 동적 메모리는 Heap 영역에 List의 형식으로 저장되며 `free` 함수를 통해 수동으로 메모리를 해제해야한다. 2. 메모리 접근 속도가 정적 메모리보다 상대적으로 느리며 메모리가 오류 가능성이 상대적으로 크지만 필요한 만큼만 메모리를 할당하여 효율성을 높일 수 있다. 3. malloc 함수는 `void(*)`형을 반환하며 동적 할당한 저장공간을 변수로 사용하기 위해 변수를 가리키는 포인터에 저장한다. 4. calloc 함수는 할당한 저장 공간을 0으로 초기화하고 , realloc은 함수의 크기를 조절한다. Struct 구조체는 여러 데이터 타입을 하나의 집합으로 묶기 위해 사용되는 사용자 정의 데이터 타입이다.\nstruct Student { char name[50]; int age; float grade; } 2. 위의 메모리들이 데이터가 어떻게 배치되어야할지 결정해야 하는데 그 규칙을 `Byte alignment`라고 한다. 이 `Byte alignment`가 필요한 이유는 성능 때문인데 CPU 가 특정 주소에서 정렬되지 않은 데이터를 참조하기 위해서는 Stack을 읽고 쓰는데 추가 작업을 해야하기 때문에 성능 저하를 초래할 수 있다, 3. `Byte alignment`를 하기위해 `Padding Byte`가 사용된다. `Padding Byte`는 구조체 멤버들 사이에 삽입되어 각 멤버가 적절한 바이트 경계에 정렬되도록 한다. `Padding` 은 실제 데이터가 아닌 메모리 공간을 차지하는 바이트이며 구조체의 크기를 증가시킬 수 있다. ```cpp struct Example { char c; // 1 Byte char padding[3]; // 3 Byte int i; // 4 Byte short s; // 2 Byte char padding2[2]; // 2 Byte } 위 코드를 보면 제일 큰 메모리 i 의 메모리에 맞추기 위해 padding 메모리를 추가해 정렬한 것을 확인할 수 있다.\n",
+  "wordCount" : "811",
+  "inLanguage": "en",
+  "image": "https://garfield0xff.github.io/images/papermod-cover.png","datePublished": "2024-08-23T21:38:38+09:00",
+  "dateModified": "2024-08-23T21:38:38+09:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://garfield0xff.github.io/posts/c-concept2/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Synapse",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://garfield0xff.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://garfield0xff.github.io/" accesskey="h" title="Synapse (Alt + H)">Synapse</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://garfield0xff.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://garfield0xff.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      C-Concept 2
+    </h1>
+    <div class="post-meta"><span title='2024-08-23 21:38:38 +0900 KST'>August 23, 2024</span>&nbsp;·&nbsp;4 min
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#stdin" aria-label="Stdin">Stdin</a></li>
+                <li>
+                    <a href="#string-operator" aria-label="String operator">String operator</a></li>
+                <li>
+                    <a href="#variable-space" aria-label="Variable Space">Variable Space</a></li>
+                <li>
+                    <a href="#array" aria-label="Array">Array</a></li>
+                <li>
+                    <a href="#memoery-allocation" aria-label="Memoery Allocation">Memoery Allocation</a></li>
+                <li>
+                    <a href="#struct" aria-label="Struct">Struct</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>혼자 공부하는 C 언어 12장부터 20장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.</p>
+<h4 id="stdin"><code>Stdin</code><a hidden class="anchor" aria-hidden="true" href="#stdin">#</a></h4>
+<pre><code>scanf : scanf 함수는 표준 stdin에서 입력을 받아 지정된 형식에 맞게 데이터를 처리하고 변수에 저장한다. 운영체제는 입력된 데이터가 변수의 크기를 초과하지 않도록 관리하지 않기 떄문에, 사용자가 지정한 변수보다 큰 데이터를 입력하면 버퍼 오퍼플로우가 발생한다.
+	
+gets : gets는 입력된 문자열을 메모리에 저장하기 위해 버퍼를 사용한다. 하지만 이 함수는 버퍼의 크기를 확인하지 않기 떄문에 입력이 버퍼 크기를 초과할 경우 버퍼 오버플로우가 발생한다.
+
+fgets : stdin에서 지정된 수의 문자 또는 새 문자가 입력될 때까지 입력을 받아 버퍼에 저장한다. 입력된 데이터는 항상 널 문자로 종료된다. 운영체제는 fgets에서 사용자가 지정된 크기만큼 메모리를 할당하고 그 이상 입력되지 않도록 관리한다. 이로 인해 버퍼 오버플로우를 방지할 수 있다.
+</code></pre>
+<h4 id="string-operator"><code>String operator</code><a hidden class="anchor" aria-hidden="true" href="#string-operator">#</a></h4>
+<pre><code>strncpy : 지정된 길이만큼의 문자를 한 문자열에서 다른 문자열로 복사한다 ex ) strncpy ( dest , src ,n ) 함수는 src 문자열에서 최대 n개의 문자를 dest에 복사한다. 만약 src 의 길이가 n 보다 짧다면 dest의 나머지 부분은 null 로 채워진다. dest의 버퍼가 src보다 같거나 크지 않을 경우 오버플로우가 발생 할 수 있다. strncpy 는 n만큼만 복사함 -&gt; str1 = &quot;Apple&quot; strncpy(str1, &quot;airplane&quot;, 1) = &quot;apple&quot;
+
+strcat : 두개의 문자열을 하나의 문자열로 만든다. strcat(dest, src)는 src 문자열을 dest 문자열의 끝에 연결한다. 이 과정에서 dest 문자열의 끝에 있는 null 문자를 덮어쓰고, src 의 내용을 추가한 후 새로운 끝에 널 문자를 추가한다.
+
+strcmp : 두개의 문자열을 비교한다. strcmp 함수는 두 문자열의 사전 순서를 판단해 그 결과를 반환한다. 사전 순서는 사전에 단어가 수록되는 알파벳 순서를 말한다
+
+str + operator : str+operator(destination, source);
+str+ n + operator : str+n+operator(destination, source , size);
+</code></pre>
+<h4 id="variable-space"><code>Variable Space</code><a hidden class="anchor" aria-hidden="true" href="#variable-space">#</a></h4>
+<pre><code>지역 변수 : 함수나 블록내에서 선언된 변수이며 일반적으로 Ram 의 Stack 에 저장된다. 함수나 블록이 실행되는 동안에만 유지되며 벗어날 경우 Stack Frame이 없어지고 Stack Pointer가 다시 원 위치하게 된다. 초기화 하지 않은 변수는 쓰레기 값을 가지며 호출될때마다 스택에 새로 할당된다.
+
+  전역변수 : 전역변수는 모든 함수나 블록에서 접근할 수 있도록 함수 외부에 선언된 변수이다. 전역변수는 Data, BSS에 저장되며 Process가 Fork 할때 자식 Process에게 전달된다. 전역 변수는 Data 혹은 Bss 에 저장되어 passive process 에서 active process로 전환될때 0으로 초기화 된다. 따라서 프로그램 전체 실행시간동안 메모리를 차지하므로 전역변수의 사용을 최소화 하는것이 좋다
+
+정적변수 : 정적변수는 수명이 프로그램의 실행기간 동안 유지되지만 범위는 선언된블록이나 함수에 제한되는 변수이다. 정적 변수도 Rom의 Data Segment에 저장되며 초기화하지 않으면 0으로 초기화 된다. 하지만 전역변수와 다르게 선언된 함수 혹은 파일 내에서 한번만 할당되고 프로그램이 종료될때 해제된다.
+
+레지스터 변수 : 레지스터 변수는 cpu의 레지스터에 저장되도록 요청되는 변수이다. 일반적으로 매우 빠르게 접근해야할 경우 사용된다. 레지스터 변수는 cpu의 레지스터에 저장되고 레지스터가 부족할 경우 컴파일러가 레지스터가 아닌 메모리에 저장하게된다. 지역변수와 마찬가지로 초기화되지 않은 경우 쓰레기 값이 잡히며 범위 또한 지역변수와 동일하다. 레지스터의 개수는 제한적이므로 레지스터 변수에 대해 신중히 사용해야한다.
+</code></pre>
+<h4 id="array"><code>Array</code><a hidden class="anchor" aria-hidden="true" href="#array">#</a></h4>
+<ol>
+<li>1차원 배열과 포인터</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">arr</span><span class="p">;</span>
+</span></span></code></pre></div><p><code>l-value</code>인 <code>arr</code> 은 배열의 첫번쨰 요소를 가리키는 주소 포인터로 해석할 수 있으며  <code>arr = &amp;arr[0]</code>으로 생각할 수 있다. 즉  <code>arr[i]</code> 은 <code>*(arr + i)</code> 와 동일하다고도  생각할 수 있다.</p>
+<ol start="2">
+<li>2차원 배열과 포인터</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">}};</span>
+</span></span></code></pre></div><p>위 과정을 생각하면  matrix는 <code>int[3]</code> 을 가리키는 포인터  <code>int(*)[3]</code>으로 간주될 수 있다.  따라서 <code>matrix[i]</code>는 <code>matrix</code>의 i 번째 행을 가리키는 포인터로, 배열의 첫번째 요소를 가리키는 포인터<code>int (*)</code>로 해석할 수 있다. -&gt; <code>matrix[i][j] = *(*(matrix + i ) + j )</code></p>
+<ol start="3">
+<li>포인터 배열</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="o">*</span><span class="n">ptrArray</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">row1</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">row2</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ptrArray</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">row1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">ptrArray</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">row2</span><span class="p">;</span>
+</span></span></code></pre></div><p>포인터 배열은 배열의 각 요소가 포인터를 가리키는 배열이다. 이를 통해 비정형 2차원 배열을 구현할 수 있다.
+<code>ptrArray</code>는 <code>int *</code> 타입의 포인터 배열로 각 요소는 배열의 첫 번째 요소를 가리킨다. 따라서 <code>ptrArray[i][j]</code> 는 <code>*(*(ptrArray + i ) + j </code> 와  동일하다.</p>
+<h4 id="memoery-allocation"><code>Memoery Allocation</code><a hidden class="anchor" aria-hidden="true" href="#memoery-allocation">#</a></h4>
+<pre><code>1. 프로그램의 실행 중에 필요에 따라 동적으로 크기를 변경해야할때 동적 할당을 사용한다. 동적 메모리는 Heap 영역에 List의 형식으로 저장되며 `free` 함수를 통해 수동으로 메모리를 해제해야한다.
+2. 메모리 접근 속도가 정적 메모리보다 상대적으로 느리며 메모리가 오류 가능성이 상대적으로 크지만 필요한 만큼만 메모리를 할당하여 효율성을 높일 수 있다.
+3. malloc 함수는 `void(*)`형을 반환하며 동적 할당한 저장공간을 변수로 사용하기 위해 변수를 가리키는  포인터에 저장한다.
+4. calloc 함수는 할당한 저장 공간을 0으로 초기화하고 , realloc은 함수의 크기를 조절한다.
+</code></pre>
+<h4 id="struct"><code>Struct</code><a hidden class="anchor" aria-hidden="true" href="#struct">#</a></h4>
+<ol>
+<li>
+<p>구조체는 여러 데이터 타입을 하나의 집합으로 묶기 위해 사용되는 사용자 정의 데이터 타입이다.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Student</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">grade</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+</ol>
+<pre tabindex="0"><code>
+2.  위의 메모리들이 데이터가 어떻게 배치되어야할지 결정해야 하는데 그 규칙을 `Byte alignment`라고 한다. 이 `Byte alignment`가 필요한 이유는 성능 때문인데 CPU 가 특정 주소에서 정렬되지 않은 데이터를 참조하기 위해서는 Stack을 읽고 쓰는데 추가 작업을 해야하기 때문에 성능 저하를 초래할 수 있다,
+3. `Byte alignment`를 하기위해 `Padding Byte`가 사용된다. `Padding Byte`는 구조체 멤버들 사이에 삽입되어 각 멤버가 적절한 바이트 경계에 정렬되도록 한다. `Padding` 은 실제 데이터가 아닌 메모리 공간을 차지하는 바이트이며 구조체의 크기를 증가시킬 수 있다.
+   
+```cpp
+struct Example { 
+	char c; // 1 Byte
+	char padding[3]; // 3 Byte
+	int i; // 4 Byte
+	short s; // 2 Byte
+	char padding2[2]; // 2 Byte
+}
+</code></pre><p>위 코드를 보면 제일 큰 메모리 i 의 메모리에 맞추기 위해 padding 메모리를 추가해 정렬한 것을 확인할 수 있다.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://garfield0xff.github.io/posts/c-concept1/">
+    <span class="title">Next »</span>
+    <br>
+    <span>C-Concept 1</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>2024 Kim Gyujin</span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

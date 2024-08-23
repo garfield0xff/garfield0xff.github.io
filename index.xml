@@ -12,8 +12,16 @@
     <generator>Hugo -- 0.133.0</generator>
     <language>en</language>
     <copyright>2024 Kim Gyujin</copyright>
-    <lastBuildDate>Wed, 21 Aug 2024 22:20:28 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 23 Aug 2024 21:38:38 +0900</lastBuildDate>
     <atom:link href="https://garfield0xff.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C-Concept 2</title>
+      <link>https://garfield0xff.github.io/posts/c-concept2/</link>
+      <pubDate>Fri, 23 Aug 2024 21:38:38 +0900</pubDate>
+      <guid>https://garfield0xff.github.io/posts/c-concept2/</guid>
+      <description>혼자 공부하는 C 언어 12장부터 20장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.
+Stdin scanf : scanf 함수는 표준 stdin에서 입력을 받아 지정된 형식에 맞게 데이터를 처리하고 변수에 저장한다. 운영체제는 입력된 데이터가 변수의 크기를 초과하지 않도록 관리하지 않기 떄문에, 사용자가 지정한 변수보다 큰 데이터를 입력하면 버퍼 오퍼플로우가 발생한다. gets : gets는 입력된 문자열을 메모리에 저장하기 위해 버퍼를 사용한다. 하지만 이 함수는 버퍼의 크기를 확인하지 않기 떄문에 입력이 버퍼 크기를 초과할 경우 버퍼 오버플로우가 발생한다.</description>
+    </item>
     <item>
       <title>C-Concept 1</title>
       <link>https://garfield0xff.github.io/posts/c-concept1/</link>
