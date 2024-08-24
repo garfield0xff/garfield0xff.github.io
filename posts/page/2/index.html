@@ -148,74 +148,21 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Cpp Concept1
+    <h2 class="entry-hint-parent">Linear Regression
     </h2>
   </header>
   <div class="entry-content">
-    <p>명품 c&#43;&#43; 프로그래밍 1장~5장 요약본입니다.
-Inline 매크로를 이용한 함수의 인라인화는 전처리기에 의해서 처리되지만 keywokd inline을 이용한 함수의 인라인화는 컴파일러에 의해서 처리가 된다. 따라서 컴파일러는 함수의 인라인화가 오히려 성능에 해가 된다고 판단할 경우, 이 키워드를 무시해버리기도 한다. 또한 컴파일러는 필요한경우 일부 함수를 임의로 인라인 처리하기도 한다. #define SQUARE(x) ((x)*(x)) int main() { int result = SQUARE(5); } 위처럼 C에서는 전처리 과정에서 SQUARE를 ( 5 x 5 )로 치환한다. 위 코드처럼 매크로 함수는 매개변수의 타입에 구애를 받지 않으나 타입 체크와 디버깅에 어려움이 있어 안전하지 않을 수 있다는 단점이 있다....</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-08-24 23:08:08 +0900 KST'>August 24, 2024</span>&nbsp;·&nbsp;6 min</footer>
-  <a class="entry-link" aria-label="post link to Cpp Concept1" href="https://garfield0xff.github.io/posts/cpp-concept1/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">C-Concept 2
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>혼자 공부하는 C 언어 12장부터 20장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.
-Stdin scanf : scanf 함수는 표준 stdin에서 입력을 받아 지정된 형식에 맞게 데이터를 처리하고 변수에 저장한다. 운영체제는 입력된 데이터가 변수의 크기를 초과하지 않도록 관리하지 않기 떄문에, 사용자가 지정한 변수보다 큰 데이터를 입력하면 버퍼 오퍼플로우가 발생한다. gets : gets는 입력된 문자열을 메모리에 저장하기 위해 버퍼를 사용한다. 하지만 이 함수는 버퍼의 크기를 확인하지 않기 떄문에 입력이 버퍼 크기를 초과할 경우 버퍼 오버플로우가 발생한다....</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-08-23 21:38:38 +0900 KST'>August 23, 2024</span>&nbsp;·&nbsp;4 min</footer>
-  <a class="entry-link" aria-label="post link to C-Concept 2" href="https://garfield0xff.github.io/posts/c-concept2/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">C-Concept 1
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>혼자 공부하는 C 언어 1장부터 11장까지의 내용을 개인적으로 복기하기 위해 정리한 내용입니다.
-Program 1. Program 은 명령어의 로직을 설계하고 나열한 것이다. 2. C언어는 하드웨어에 상관없이 유닉스를 개발하기 위해 설계되었다. 3. Compile (빌드) 은 Source 를 컴파일러를 통해 기계어로 만드는 과정이다. ( Decomplier ) 4. gcc 는 어셈블리어를 기계어로 porting 하는 기능도 포함하기 때문에 어셈블러의 기능을 포함한 컴파일러라고도 생각할 수 있다. 5. visual studio는 IDE 이자 Compiler(MSVC) 의 기능을 포함하고 있다. -&gt; 책에서는 컴파일러중 하나라고 표현하고 있지만 명확하게는 Microsoft Visual C 의 컴파일러의 기능을 포함한 IDE가 정확한 표현이다....</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-08-21 22:20:28 +0900 KST'>August 21, 2024</span>&nbsp;·&nbsp;5 min</footer>
-  <a class="entry-link" aria-label="post link to C-Concept 1" href="https://garfield0xff.github.io/posts/c-concept1/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Gradient Descent
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>다양한 문제에서 Loss를 어떻게 정의하고 줄여나갈 수 있을까? Gradient descent를 통해 한번 알아보자
-정의 주어진 볼록 함수를 로컬 최소값으로 최소화 하기위해 매개 변수를 반복적으로 조정하는 기법 매개변수 ( weights 에 대한 Loss )를 반복적으로 조정해 볼록 함수의 최소화하는 변곡점을 찾는 과정이라고 해석 할 수 있다.
-제약 조건이 없는 수학적 최적화 방법 경사 하강법은 일반적으로 단순히 함수의 기울기를 따라 이동하며 최솟값을 찾는 문제이기 떄문에 제약 조건이 없는 최적화 문제에 사용된다. 제약 조건이 있을 경우에는 추가적인 ( 라그랑주 승수법, 베리어 함수법)등을 기법을 수행해야한다...</p>
+    <p>학습의 과정은 물체 혹은 이미지를 지각하고 인지한 후 내 머릿속의 식을 바꾸는 것으로 해석할 수 있다. 그렇다면 Linear Legression은 학습을 어떻게 표현했을지 알아보자.
+정의 데이터를 사용하여 변수 간의 관계를 식별하고 이러한 관계를 사용하여 예측을 수행하는 기술 x_data 와 y_data 가 주어졌을떄 두 데이터간의 관계를 파악하고 새로운 z_data 에 대한 예측을 수행하는 기술이라고 이해 할 수 있다.
+고차원 공간에서 데이터 점들을 가장 잘 표현할 수 있는 초평면(hyperplane)을 찾는 기술 여기서 초평면은 n 차원 공간에서 n -1 차원의 flat한 면이다....</p>
   </div>
   <footer class="entry-footer"><span title='2024-07-29 23:16:38 +0900 KST'>July 29, 2024</span>&nbsp;·&nbsp;2 min</footer>
-  <a class="entry-link" aria-label="post link to Gradient Descent" href="https://garfield0xff.github.io/posts/gradient-descent/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Introduction Computer Vision
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>컴퓨터 비전에 대해 원론적으로 접근해보면서 컴퓨터 비전에 대한 Depth를 넓히고자 한다 .
-정의 디지털 이미지에서 정보를 추출하는 과학적인 영역 여기서 말하는 정보란 (Space, Location.. ) 등의 새로운 차원의 정보를 말한다. 따라서 RGB 혹은 RGBA 데이터로 새로운 차원의 정보를 추출하는 과학적인 영역이라고 해석할 수 있다
-인간의 시야와 비슷한 시야 인지 능력을 구현하는 학문 인간의 지각 능력과 인지(해석)능력을 구분해 파이프라인을 구현하고 시야인지 능력을 구현하고자 하는 학문이라고 해석할 수 있다.
-아래 이미지를 통해 컴퓨터 비전이 포맷에 따라 어떻게 사용되는지 간략하게 파악 할 수 있다....</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-07-29 23:16:38 +0900 KST'>July 29, 2024</span>&nbsp;·&nbsp;3 min</footer>
-  <a class="entry-link" aria-label="post link to Introduction Computer Vision" href="https://garfield0xff.github.io/posts/introduction-cv/"></a>
+  <a class="entry-link" aria-label="post link to Linear Regression" href="https://garfield0xff.github.io/posts/linear-regression/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
-    <a class="next" href="https://garfield0xff.github.io/posts/page/2/">Next&nbsp;2/2&nbsp;»
+    <a class="prev" href="https://garfield0xff.github.io/posts/">
+      «&nbsp;Prev&nbsp;1/2
     </a>
   </nav>
 </footer>
